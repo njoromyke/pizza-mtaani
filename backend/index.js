@@ -17,7 +17,7 @@ app.use(cors());
 app.get("/", (req, res) => {
   res.send("Hello World!");
 });
-app.use("/api/pizzas", pizzaRoutes);
+app.use("/api/pizza", pizzaRoutes);
 app.use("/api/basic_toppings", basicToppingRoutes);
 app.use("/api/deluxe_toppings", deluxeToppingRoutes);
 app.use("/api/orders", orderRoutes);

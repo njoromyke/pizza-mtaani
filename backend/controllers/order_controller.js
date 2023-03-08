@@ -6,29 +6,29 @@ const asyncHandler = require("express-async-handler");
 // @access  Public
 
 const createOrder = asyncHandler(async (req, res) => {
-  const { pizza, deluxe_topping, basic_topping, quantity, total, sub: sub_total } = req.body;
+  const { order_items } = req.body;
+  const tax = 0.16 * order_items.reduce((acc, item) => acc + item.price, 0);
+  const subtotal = order_items.reduce((acc, item) => acc + item.price, 0);
+  const total = subtotal + tax;
 
-  const tax = parseFloat(sub_total) * parseFloat(0.16);
-
-  const order = await Order.create({
-    pizza,
-    deluxe_topping,
-    basic_topping,
-    quantity,
-    total,
-    sub_total,
-    tax,
-  });
-
-  if (order) {
-    res.status(201).json({
-      order,
-      message: "Order created successfully",
-      success: true,
+  try {
+    const order = await Order.create({
+      order_items,
+      tax,
+      subtotal,
+      total,
     });
-  } else {
+
+    if (order) {
+      res.status(201).json({
+        order,
+        message: "Order created successfully",
+        success: true,
+      });
+    }
+  } catch (error) {
     res.status(400);
-    throw new Error("Invalid order data");
+    throw new Error(error.message);
   }
 });
 
@@ -45,6 +45,5 @@ const getOrderById = asyncHandler(async (req, res) => {
     throw new Error("Order not found");
   }
 });
-
 
 module.exports = { createOrder, getOrderById };

@@ -7,7 +7,11 @@ const asyncHandler = require("express-async-handler");
 
 const getPizzas = asyncHandler(async (req, res) => {
   const pizzas = await Pizza.find({});
-  res.json(pizzas);
+  res.json({
+    pizzas,
+    success: true,
+    message: "Pizzas fetched successfully",
+  });
 });
 
 // @desc    Get a single pizza
@@ -17,7 +21,11 @@ const getPizzas = asyncHandler(async (req, res) => {
 const getPizzaById = asyncHandler(async (req, res) => {
   const pizza = await Pizza.findById(req.params.id);
   if (pizza) {
-    res.json(pizza);
+    res.json({
+      pizza,
+      success: true,
+      message: "Pizza fetched successfully",
+    });
   } else {
     res.status(404);
     throw new Error("Pizza not found");
@@ -29,14 +37,11 @@ const getPizzaById = asyncHandler(async (req, res) => {
 // @access  Public
 
 const createPizza = asyncHandler(async (req, res) => {
-  const { name, price, size, basic_topping, deluxe_topping } = req.body;
+  const { price, size } = req.body;
 
-  const pizza = Pizza.create({
-    name,
+  const pizza = await Pizza.create({
     price,
     size,
-    basic_topping,
-    deluxe_topping,
   });
 
   if (pizza) {

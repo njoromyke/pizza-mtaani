@@ -1,35 +1,37 @@
 const mongoose = require("mongoose");
 
 const orderSchema = new mongoose.Schema({
-  pizza: [
+  order_items: [
     {
-      type: mongoose.Schema.Types.ObjectId,
-      ref: "Pizza",
-      required: true,
+      pizza: {
+        type: mongoose.Schema.Types.ObjectId,
+        ref: "Pizza",
+        required: true,
+      },
+
+      basic_toppings: {
+        type: mongoose.Schema.Types.ObjectId,
+        ref: "BasicTopping",
+        required: false,
+      },
+
+      deluxe_toppings: {
+        type: mongoose.Schema.Types.ObjectId,
+        ref: "DeluxeTopping",
+        required: false,
+      },
+
+      quantity: {
+        type: Number,
+        required: true,
+      },
+
+      price: {
+        type: Number,
+        required: true,
+      },
     },
   ],
-
-  basic_topping: [
-    {
-      type: mongoose.Schema.Types.ObjectId,
-      ref: "BasicTopping",
-      required: true,
-    },
-  ],
-
-  deluxe_topping: [
-    {
-      type: mongoose.Schema.Types.ObjectId,
-      ref: "DeluxeTopping",
-      required: true,
-    },
-  ],
-
-  quantity: {
-    type: Number,
-    required: true,
-  },
-
   tax: {
     type: Number,
     required: true,
