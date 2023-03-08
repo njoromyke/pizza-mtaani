@@ -38,3 +38,12 @@ Open [http://localhost:3000](http://localhost:3000) to view it in the browser.
 ## Deployed Application
 
 [https://pizza-mtaa-front-5g83gwmwr-ngahika01.vercel.app](https://pizza-mtaa-front-5g83gwmwr-ngahika01.vercel.app) to view it in the browser.
+
+## Built With
+
+Node JS/Express JS
+Next JS
+Mongo DB
+React JS
+Tailwind CSS
+Typescript
