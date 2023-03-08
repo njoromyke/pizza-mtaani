@@ -26,19 +26,15 @@ npm start
 ```
 
 ```
-
-```
-
-```
 cd backend
 npm install
 
 npm start
-```
-
-```
 
 ```
 
 Open [http://localhost:3000](http://localhost:3000) to view it in the browser.
 
+## Deployed Application
+
+[https://pizza-mtaa-front-5g83gwmwr-ngahika01.vercel.app](https://pizza-mtaa-front-5g83gwmwr-ngahika01.vercel.app) to view it in the browser.
