@@ -6,16 +6,15 @@ const asyncHandler = require("express-async-handler");
 // @access  Public
 
 const createOrder = asyncHandler(async (req, res) => {
-  const { order_items } = req.body;
-  const tax = 0.16 * order_items.reduce((acc, item) => acc + item.price, 0);
-  const subtotal = order_items.reduce((acc, item) => acc + item.price, 0);
-  const total = subtotal + tax;
+  const { order_items, sub_total, total } = req.body;
+
+  const tax = parseFloat((sub_total * 0.13).toFixed(2));
 
   try {
     const order = await Order.create({
       order_items,
       tax,
-      subtotal,
+      sub_total,
       total,
     });
 
@@ -37,9 +36,17 @@ const createOrder = asyncHandler(async (req, res) => {
 // @access  Public
 
 const getOrderById = asyncHandler(async (req, res) => {
-  const order = await Order.findById(req.params.id).populate("pizza").populate("deluxe_topping").populate("basic_topping");
+  const order = await Order.findById(req.params.id)
+    .populate("order_items.pizza")
+    .populate("order_items.deluxe_topping")
+    .populate("order_items.basic_topping");
+
   if (order) {
-    res.json(order);
+    res.json({
+      order,
+      success: true,
+      message: "Order found",
+    });
   } else {
     res.status(404);
     throw new Error("Order not found");

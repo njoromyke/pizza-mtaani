@@ -11,7 +11,7 @@ const orderSchema = new mongoose.Schema({
 
       basic_topping: {
         type: mongoose.Schema.Types.ObjectId,
-        ref: "BasicTopping",
+        ref: "basicTopping",
         required: false,
       },
 
@@ -25,11 +25,6 @@ const orderSchema = new mongoose.Schema({
         type: Number,
         required: true,
       },
-
-      price: {
-        type: Number,
-        required: true,
-      },
     },
   ],
   tax: {
@@ -37,7 +32,7 @@ const orderSchema = new mongoose.Schema({
     required: true,
   },
 
-  subtotal: {
+  sub_total: {
     type: Number,
     required: true,
   },
