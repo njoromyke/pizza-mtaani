@@ -9,13 +9,13 @@ const orderSchema = new mongoose.Schema({
         required: true,
       },
 
-      basic_toppings: {
+      basic_topping: {
         type: mongoose.Schema.Types.ObjectId,
         ref: "BasicTopping",
         required: false,
       },
 
-      deluxe_toppings: {
+      deluxe_topping: {
         type: mongoose.Schema.Types.ObjectId,
         ref: "DeluxeTopping",
         required: false,

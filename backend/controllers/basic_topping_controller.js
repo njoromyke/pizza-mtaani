@@ -1,4 +1,4 @@
-const BasicTopping = require("../models/DeluxeTopping");
+const BasicTopping = require("../models/BasicTopping");
 const asyncHandler = require("express-async-handler");
 
 // @desc    Create a basic topping
@@ -33,9 +33,15 @@ const createBasicTopping = asyncHandler(async (req, res) => {
 const getBasicToppingSize = asyncHandler(async (req, res) => {
   const size = req.params.size;
 
-  const deluxeTopping = await BasicTopping.find({}).where("size").equals(size);
-  if (deluxeTopping) {
-    res.json(deluxeTopping);
+  const basicToppings = await BasicTopping.find({
+    size,
+  });
+  if (basicToppings) {
+    res.json({
+      basicToppings,
+      message: "Basic topping size retrieved successfully",
+      success: true,
+    });
   } else {
     res.status(404);
     throw new Error("Basic topping not found");
